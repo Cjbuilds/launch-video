@@ -1,0 +1,386 @@
+<template>
+  <style>
+    * { box-sizing: border-box; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #11162a;
+      font-family: Arial, sans-serif;
+    }
+
+    .payoff-stage {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 75% 15%, #dfe5ff 0, transparent 36%),
+        linear-gradient(145deg, #fff 0, #f5f6fc 62%, #e9e8ff 100%);
+    }
+
+    .payoff-brand {
+      position: absolute;
+      left: 6.25%;
+      top: 6%;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .payoff-brand b {
+      display: grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      border-radius: 9px;
+      background: #2457ff;
+      color: #fff;
+    }
+
+    .payoff-final {
+      position: absolute;
+      left: 6.25%;
+      top: 21%;
+      width: 52%;
+      z-index: 3;
+    }
+
+    .payoff-eyebrow {
+      color: #2457ff;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .payoff-final h1 {
+      margin: 24px 0 0;
+      font-size: 96px;
+      line-height: .96;
+      letter-spacing: -.068em;
+    }
+
+    .payoff-final p {
+      width: 68%;
+      margin: 28px 0 0;
+      color: #646b80;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .payoff-cta-wrap {
+      position: relative;
+      display: inline-flex;
+      margin-top: 34px;
+    }
+
+    .payoff-cta {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 19px 16px 24px;
+      border-radius: 14px;
+      background: #2457ff;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      box-shadow: 0 16px 34px rgba(36, 87, 255, .3);
+    }
+
+    .payoff-cta i {
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      border-radius: 8px;
+      background: #fff;
+      color: #2457ff;
+      font-style: normal;
+    }
+
+    .payoff-path-wrap {
+      position: absolute;
+      right: 4.5%;
+      top: 15%;
+      width: 42%;
+      height: 72%;
+    }
+
+    .payoff-path {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 42px;
+      background: #151a30;
+      box-shadow: 0 45px 100px rgba(23, 29, 60, .24);
+      transform: perspective(1300px) rotateY(-7deg) rotateX(3deg);
+    }
+
+    .payoff-path::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 25%, rgba(59, 103, 255, .35), transparent 42%);
+    }
+
+    .payoff-path-head {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 28px;
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .payoff-path-head h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .payoff-ready {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #aab4cc;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .payoff-ready i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #68e0a2;
+      box-shadow: 0 0 12px #68e0a2;
+    }
+
+    .payoff-flow {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding: 27px;
+    }
+
+    .payoff-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 43px 1fr auto;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, .11);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .075);
+      color: #fff;
+    }
+
+    .payoff-connector-svg {
+      position: absolute;
+      left: 39px;
+      bottom: -20px;
+      width: 4px;
+      height: 20px;
+      overflow: visible;
+      z-index: 2;
+    }
+
+    .payoff-connector-svg path {
+      fill: none;
+      stroke: #526698;
+      stroke-width: 2;
+      stroke-linecap: square;
+    }
+
+    .payoff-num {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #262e4c;
+      color: #9eb2ff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .payoff-step h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .payoff-step p {
+      margin: 0;
+      color: #aab2c8;
+      font-size: 12px;
+    }
+
+    .payoff-done {
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: #253156;
+      color: #9eb2ff;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .payoff-step.payoff-active {
+      border-color: #5e7fff;
+      background: linear-gradient(100deg, rgba(36, 87, 255, .28), rgba(255, 255, 255, .09));
+      box-shadow: 0 12px 34px rgba(0, 0, 0, .2);
+    }
+
+    .payoff-step.payoff-active .payoff-num {
+      background: #2457ff;
+      color: #fff;
+    }
+
+    .payoff-step.payoff-active .payoff-done {
+      background: #dff8ea;
+      color: #16754a;
+    }
+
+    .payoff-task {
+      position: relative;
+      margin: 3px 27px 0;
+      padding: 20px 21px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 17px 45px rgba(0, 0, 0, .28);
+    }
+
+    .payoff-task small {
+      color: #2457ff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .payoff-task h3 {
+      margin: 10px 0 8px;
+      font-size: 20px;
+      letter-spacing: -.03em;
+    }
+
+    .payoff-task p {
+      margin: 0;
+      color: #697084;
+      font-size: 12px;
+    }
+
+    .payoff-task .payoff-arrow {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-top: -19px;
+      border-radius: 11px;
+      background: #eef1ff;
+      color: #2457ff;
+      font-weight: 900;
+    }
+  </style>
+
+  <div data-hf-id="hf-5de6" id="root" data-composition-id="payoff" data-width="1920" data-height="1080" data-start="0" data-duration="6">
+    <main data-hf-id="hf-8lxu" id="payoff-stage" class="clip payoff-stage" data-start="0" data-duration="6" data-track-index="1" aria-label="Completed Relay feedback to build task workflow">
+      <div data-hf-id="hf-g05u" class="payoff-brand"><b data-hf-id="hf-4nit">R</b>Relay</div>
+      <section data-hf-id="hf-oomm" class="payoff-final">
+        <div data-hf-id="hf-3aaq" class="payoff-eyebrow">Feedback, connected to action</div>
+        <h1 data-hf-id="hf-atyr">Ship what customers asked for. Start with Relay.</h1>
+        <p data-hf-id="hf-fkg2">Keep the original customer signal attached from first note to next build.</p>
+        <div data-hf-id="hf-p48p" class="payoff-cta-wrap">
+          <div data-hf-id="hf-2uop" class="payoff-cta">Start with Relay <i data-hf-id="hf-9w8a">→</i></div>
+        </div>
+      </section>
+
+      <div data-hf-id="hf-gk3s" class="payoff-path-wrap">
+        <section data-hf-id="hf-9u73" class="payoff-path">
+          <header data-hf-id="hf-r5o2" class="payoff-path-head">
+            <h2 data-hf-id="hf-x9wq">Team permissions</h2>
+            <span data-hf-id="hf-1o1t" class="payoff-ready"><i data-hf-id="hf-wt6k"></i>Build ready</span>
+          </header>
+          <div data-hf-id="hf-0kai" class="payoff-flow">
+            <article data-hf-id="hf-zrtt" class="payoff-step payoff-step-1">
+              <span data-hf-id="hf-q2iw" class="payoff-num">01</span>
+              <div data-hf-id="hf-yeow"><h3 data-hf-id="hf-ya78">Feedback collected</h3><p data-hf-id="hf-790g">Support, calls, and team notes</p></div>
+              <span data-hf-id="hf-hxjl" class="payoff-done">DONE</span>
+              <svg data-hf-id="hf-9rqt" class="payoff-connector-svg" viewBox="0 0 4 20" aria-hidden="true"><path data-hf-id="hf-w8wb" class="payoff-connector" d="M 2 0 L 2 20" /></svg>
+            </article>
+            <article data-hf-id="hf-3pxu" class="payoff-step payoff-step-2">
+              <span data-hf-id="hf-ovlt" class="payoff-num">02</span>
+              <div data-hf-id="hf-y7yw"><h3 data-hf-id="hf-3xu9">Repeated request grouped</h3><p data-hf-id="hf-7761">Team permissions · 4 sources</p></div>
+              <span data-hf-id="hf-3pmt" class="payoff-done">DONE</span>
+              <svg data-hf-id="hf-cfe1" class="payoff-connector-svg" viewBox="0 0 4 20" aria-hidden="true"><path data-hf-id="hf-igdn" class="payoff-connector" d="M 2 0 L 2 20" /></svg>
+            </article>
+            <article data-hf-id="hf-b6w3" class="payoff-step payoff-step-3 payoff-active">
+              <span data-hf-id="hf-p9wu" class="payoff-num">03</span>
+              <div data-hf-id="hf-x11t"><h3 data-hf-id="hf-7pr3">Build task scoped</h3><p data-hf-id="hf-k2r7">Roles, access, and acceptance checks</p></div>
+              <span data-hf-id="hf-wm0k" class="payoff-done">READY</span>
+            </article>
+          </div>
+          <article data-hf-id="hf-4z2e" class="payoff-task">
+            <small data-hf-id="hf-oz7d">Next useful build</small>
+            <h3 data-hf-id="hf-94zf">Add workspace roles</h3>
+            <p data-hf-id="hf-tcg3">Viewer · Editor · Admin</p>
+            <span data-hf-id="hf-awva" class="payoff-arrow">→</span>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    const payoffTimeline = gsap.timeline({ paused: true });
+    const payoffConnectors = document.querySelectorAll(".payoff-connector");
+    const payoffConnectorLengths = Array.from(
+      payoffConnectors,
+      (connector) => connector.getTotalLength()
+    );
+
+    payoffConnectors.forEach((connector, index) => {
+      payoffTimeline.set(connector, {
+        strokeDasharray: payoffConnectorLengths[index],
+        strokeDashoffset: payoffConnectorLengths[index]
+      }, 0);
+    });
+
+    payoffTimeline
+      .fromTo(".payoff-brand", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: .36, ease: "power2.out" }, 0)
+      .fromTo(".payoff-eyebrow", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .34, ease: "power2.out" }, .04)
+      .fromTo(".payoff-final h1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .38, ease: "power3.out" }, .1)
+      .fromTo(".payoff-final p", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .4, ease: "power2.out" }, .3)
+      .fromTo(".payoff-cta-wrap", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .4, ease: "power3.out" }, .52)
+      .fromTo(".payoff-path-wrap", { opacity: 0, x: 150, scale: .97 }, { opacity: 1, x: 0, scale: 1, duration: .58, ease: "power3.out" }, .18)
+      .fromTo(".payoff-path-head h2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .3, ease: "power2.out" }, .38)
+      .fromTo(".payoff-step-1", { opacity: 0, y: 26, scale: .98 }, { opacity: 1, y: 0, scale: 1, duration: .4, ease: "power3.out" }, .56)
+      .to(payoffConnectors[0], { strokeDashoffset: 0, duration: .46, ease: "power2.out" }, .9)
+      .fromTo(".payoff-step-2", { opacity: 0, y: 26, scale: .98 }, { opacity: 1, y: 0, scale: 1, duration: .4, ease: "power3.out" }, 1.1)
+      .to(payoffConnectors[1], { strokeDashoffset: 0, duration: .46, ease: "power2.out" }, 1.45)
+      .fromTo(".payoff-step-3", { opacity: 0, y: 26, scale: .98 }, { opacity: 1, y: 0, scale: 1, duration: .44, ease: "power3.out" }, 1.66)
+      .fromTo(".payoff-task", { opacity: 0, x: 86, scale: .97 }, { opacity: 1, x: 0, scale: 1, duration: .62, ease: "power3.out" }, 2.42)
+      .fromTo(".payoff-ready", { opacity: 0, x: 12 }, { opacity: 1, x: 0, duration: .36, ease: "power2.out" }, 2.72)
+      .fromTo(".payoff-cta", { boxShadow: "0 16px 34px rgba(36, 87, 255, 0)" }, { boxShadow: "0 18px 42px rgba(36, 87, 255, .38)", duration: .66, ease: "power2.out" }, 3.12)
+      .to(".payoff-cta", { boxShadow: "0 16px 34px rgba(36, 87, 255, .3)", duration: .42, ease: "power1.out" }, 3.79);
+
+    const payoffHold = { progress: 0 };
+    payoffTimeline.to(payoffHold, { progress: 1, duration: 1.8, ease: "none" }, 4.2);
+    window.__timelines["payoff"] = payoffTimeline;
+  </script>
+</template>

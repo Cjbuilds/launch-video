@@ -1,0 +1,6 @@
+interface:
+  display_name: "Launch Video"
+  short_description: "Design, approve, and render a product launch video"
+  default_prompt: "Use $launch-video to turn my product brief into a designed storyboard for approval, then a checked HyperFrames video."
+policy:
+  allow_implicit_invocation: true

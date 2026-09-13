@@ -1,0 +1,228 @@
+<template>
+  <style>
+    * { box-sizing: border-box; }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #11162a;
+    }
+    .clip {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fff 0, #f7f8fc 72%, #ebecff 72%);
+    }
+    .scope-brand {
+      position: absolute;
+      left: 6.25%;
+      top: 5.8%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 23px;
+      font-weight: 800;
+    }
+    .scope-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: #2457ff;
+      color: #fff;
+    }
+    .scope-copy {
+      position: absolute;
+      left: 6.25%;
+      top: 17%;
+      width: 87%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .scope-title { width: 58%; margin: 0; font-size: 80px; line-height: 0.99; letter-spacing: -0.06em; }
+    .scope-description { width: 27%; margin: 0 0 8px; color: #6a7185; font-size: 18px; line-height: 1.5; }
+    .scope-canvas {
+      position: absolute;
+      left: 6.25%;
+      right: 6.25%;
+      top: 39%;
+      height: 54%;
+      display: grid;
+      grid-template-columns: 31% 8% 61%;
+      align-items: center;
+    }
+    .scope-insight {
+      position: relative;
+      padding: 27px;
+      border: 1px solid #dfe2ed;
+      border-radius: 23px;
+      background: #fff;
+      box-shadow: 0 22px 55px rgba(27, 34, 68, 0.11);
+      transform-origin: 50% 50%;
+    }
+    .scope-label { color: #2457ff; font-size: 11px; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
+    .scope-insight-title { margin: 16px 0 10px; font-size: 31px; letter-spacing: -0.045em; }
+    .scope-insight-copy { margin: 0; color: #697084; font-size: 15px; line-height: 1.45; }
+    .scope-evidence {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 23px;
+      padding-top: 17px;
+      border-top: 1px solid #e7e9f0;
+      color: #6f768a;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .scope-evidence-count { color: #2457ff; }
+    .scope-arrow { position: relative; height: 38px; }
+    .scope-arrow-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 18px;
+      height: 2px;
+      background: #9fb1ff;
+      transform-origin: left center;
+    }
+    .scope-arrow-head {
+      position: absolute;
+      right: -1px;
+      top: 13px;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #2457ff;
+      border-right: 2px solid #2457ff;
+      transform: rotate(45deg);
+    }
+    .scope-arrow-node {
+      position: absolute;
+      left: calc(50% - 19px);
+      top: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #2457ff;
+      box-shadow: 0 8px 22px rgba(36, 87, 255, 0.28);
+    }
+    .scope-task {
+      position: relative;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 235px;
+      border: 1px solid #d9ddea;
+      border-radius: 25px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 30px 75px rgba(27, 34, 68, 0.16);
+      transform-origin: left center;
+    }
+    .scope-task-main { padding: 25px 28px; }
+    .scope-task-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .scope-task-title { margin: 0; font-size: 22px; letter-spacing: -0.035em; }
+    .scope-draft { padding: 7px 10px; border-radius: 7px; background: #eef1ff; color: #2457ff; font-size: 11px; font-weight: 900; }
+    .scope-field { margin-top: 15px; }
+    .scope-field-label { display: block; margin-bottom: 7px; color: #707686; font-size: 10px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
+    .scope-input { padding: 11px 13px; border: 1px solid #e1e4ed; border-radius: 10px; background: #fafbfe; font-size: 13px; font-weight: 700; }
+    .scope-problem { font-weight: 500; line-height: 1.35; }
+    .scope-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .scope-check { display: flex; gap: 8px; padding: 10px 11px; border: 1px solid #e2e5ee; border-radius: 9px; font-size: 11px; line-height: 1.25; }
+    .scope-check-box { flex: 0 0 15px; height: 15px; border: 2px solid #8da4ff; border-radius: 4px; }
+    .scope-rail { padding: 24px 20px; background: #f5f6fb; border-left: 1px solid #e0e3ec; }
+    .scope-rail-title { margin: 0 0 20px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .scope-meta { margin: 0 0 18px; }
+    .scope-meta-label { display: block; margin-bottom: 6px; color: #6c717e; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .scope-meta-value { font-size: 12px; }
+    .scope-source { display: flex; align-items: center; gap: 8px; margin: 7px 0; color: #676e82; font-size: 11px; }
+    .scope-source-icon { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: #e6eaff; color: #2457ff; font-size: 8px; font-weight: 900; }
+    .scope-create {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+      padding: 14px 19px;
+      border-radius: 11px;
+      background: #2457ff;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 12px 25px rgba(36, 87, 255, 0.28);
+      transform-origin: 50% 50%;
+    }
+    .scope-confirm-burst {
+      position: absolute;
+      right: 30px;
+      bottom: 28px;
+      z-index: 1;
+      width: 95px;
+      height: 30px;
+      border-radius: 999px;
+      background: #2457ff;
+      filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-4fle" id="root" data-composition-id="scope" data-start="0" data-duration="7" data-width="1920" data-height="1080" role="img" aria-label="Relay insight converted into a scoped build task">
+    <main id="scope-stage" data-hf-id="hf-vp3o" class="clip" data-start="0" data-duration="7" data-track-index="1">
+      <div data-hf-id="hf-vs2l" class="scope-brand"><b data-hf-id="hf-lct3" class="scope-brand-mark">R</b>Relay</div>
+      <section data-hf-id="hf-4e82" class="scope-copy"><h1 data-hf-id="hf-2czj" class="scope-title">Turn the insight into a build-ready task.</h1><p data-hf-id="hf-rjeu" class="scope-description">Carry the customer evidence forward, then define the smallest useful scope.</p></section>
+      <section data-hf-id="hf-0qi1" class="scope-canvas">
+        <article data-hf-id="hf-e4vo" class="scope-insight"><div data-hf-id="hf-phk7" class="scope-label">Insight</div><h2 data-hf-id="hf-g12a" class="scope-insight-title">Team permissions</h2><p data-hf-id="hf-5pd4" class="scope-insight-copy">Customers need workspace roles that separate viewing, editing, and admin access.</p><div data-hf-id="hf-mk6q" class="scope-evidence"><span data-hf-id="hf-pvah"><b data-hf-id="hf-1xc7" class="scope-evidence-count">4</b> linked notes</span><span data-hf-id="hf-5bs4">Reviewed</span></div></article>
+        <div data-hf-id="hf-209s" class="scope-arrow"><span data-hf-id="hf-vg0q" class="scope-arrow-line"></span><i data-hf-id="hf-604x" class="scope-arrow-node"></i><i data-hf-id="hf-kher" class="scope-arrow-head"></i></div>
+        <article data-hf-id="hf-csxr" class="scope-task">
+          <div data-hf-id="hf-pbag" class="scope-task-main">
+            <div data-hf-id="hf-coo4" class="scope-task-top"><h2 data-hf-id="hf-436p" class="scope-task-title">Create build task</h2><span data-hf-id="hf-zoko" class="scope-draft">DRAFT</span></div>
+            <div data-hf-id="hf-4co1" class="scope-field scope-title-field"><label data-hf-id="hf-qmrm" class="scope-field-label">Task title</label><div data-hf-id="hf-hbeg" class="scope-input">Add viewer, editor, and admin roles</div></div>
+            <div data-hf-id="hf-y6ri" class="scope-field scope-problem-field"><label data-hf-id="hf-3k8c" class="scope-field-label">Problem</label><div data-hf-id="hf-ab0m" class="scope-input scope-problem">Every workspace member currently has the same access. Teams need role-based control before wider rollout.</div></div>
+            <div data-hf-id="hf-en3c" class="scope-field scope-checks-field"><label data-hf-id="hf-52jj" class="scope-field-label">Acceptance checks</label><div data-hf-id="hf-3gku" class="scope-checks"><div data-hf-id="hf-zaev" class="scope-check"><i data-hf-id="hf-ng73" class="scope-check-box"></i>Admins can assign a role</div><div data-hf-id="hf-wq8b" class="scope-check"><i data-hf-id="hf-637j" class="scope-check-box"></i>Viewers cannot edit</div><div data-hf-id="hf-swc6" class="scope-check"><i data-hf-id="hf-5owi" class="scope-check-box"></i>Editors cannot manage members</div><div data-hf-id="hf-sy2n" class="scope-check"><i data-hf-id="hf-5alh" class="scope-check-box"></i>Existing admins keep access</div></div></div>
+          </div>
+          <aside data-hf-id="hf-xc8q" class="scope-rail"><h3 data-hf-id="hf-jmsm" class="scope-rail-title">Source context</h3><div data-hf-id="hf-qrnu" class="scope-meta"><span data-hf-id="hf-wgta" class="scope-meta-label">Insight</span><b data-hf-id="hf-v4c2" class="scope-meta-value">Team permissions</b></div><div data-hf-id="hf-40ni" class="scope-meta"><span data-hf-id="hf-eadi" class="scope-meta-label">Linked notes</span><div data-hf-id="hf-ccwp" class="scope-source"><i data-hf-id="hf-3i5z" class="scope-source-icon">IN</i>Support inbox</div><div data-hf-id="hf-zml6" class="scope-source"><i data-hf-id="hf-21dj" class="scope-source-icon">CL</i>Customer call</div><div data-hf-id="hf-49l7" class="scope-source"><i data-hf-id="hf-svdn" class="scope-source-icon">DM</i>Founder note</div><div data-hf-id="hf-42yr" class="scope-source"><i data-hf-id="hf-01ue" class="scope-source-icon">CS</i>Success handoff</div></div></aside>
+          <i data-hf-id="hf-ld0e" class="scope-confirm-burst"></i><span data-hf-id="hf-fbvb" class="scope-create">Create task →</span>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const scopeTimeline = gsap.timeline({ paused: true });
+    const scopeHold = { progress: 0 };
+    scopeTimeline.to(scopeHold, { progress: 1, duration: 7, ease: "none" }, 0);
+    scopeTimeline.set(".scope-create", { opacity: 0 }, 0);
+
+    scopeTimeline.fromTo(".scope-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.04);
+    scopeTimeline.fromTo(".scope-copy", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.08);
+
+    scopeTimeline.fromTo(".scope-insight", { opacity: 0, x: 340, y: 54, scale: 1.07 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 1.18, ease: "power3.inOut" }, 0.36);
+    scopeTimeline.fromTo(".scope-arrow-line", { scaleX: 0 }, { scaleX: 1, duration: 0.62, ease: "power2.out" }, 1.42);
+    scopeTimeline.fromTo([".scope-arrow-node", ".scope-arrow-head"], { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.42, stagger: 0.1, ease: "back.out(1.6)" }, 1.74);
+    scopeTimeline.fromTo(".scope-task", { opacity: 0, x: 84, scale: 0.97 }, { opacity: 1, x: 0, scale: 1, duration: 0.76, ease: "power3.out" }, 1.82);
+    scopeTimeline.fromTo(".scope-task-top", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 2.3);
+    scopeTimeline.fromTo(".scope-title-field", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" }, 2.72);
+    scopeTimeline.fromTo(".scope-problem-field", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" }, 3.18);
+    scopeTimeline.fromTo(".scope-checks-field", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, 3.64);
+    scopeTimeline.fromTo(".scope-check", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.34, stagger: 0.16, ease: "power3.out" }, 3.92);
+    scopeTimeline.fromTo(".scope-rail-title", { opacity: 0, x: 14 }, { opacity: 1, x: 0, duration: 0.34, ease: "power2.out" }, 3.78);
+    scopeTimeline.fromTo(".scope-meta", { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.36, stagger: 0.24, ease: "power2.out" }, 4.08);
+    scopeTimeline.fromTo(".scope-source", { opacity: 0, x: 12 }, { opacity: 1, x: 0, duration: 0.28, stagger: 0.11, ease: "power2.out" }, 4.42);
+    scopeTimeline.set(".scope-create", { opacity: 1, y: 18, scale: 0.9 }, 4.62);
+    scopeTimeline.to(".scope-create", { y: 0, scale: 1, duration: 0.48, ease: "back.out(1.7)" }, 4.62);
+
+    scopeTimeline.to(".scope-create", { scale: 0.94, boxShadow: "0 4px 10px rgba(36,87,255,0.22)", duration: 0.18, ease: "power1.in" }, 5.18);
+    scopeTimeline.to(".scope-create", { scale: 1, boxShadow: "0 12px 25px rgba(36,87,255,0.28)", duration: 0.54, ease: "back.out(1.6)" }, 5.36);
+    scopeTimeline.fromTo(".scope-confirm-burst", { opacity: 0, scale: 1 }, { opacity: 0.56, scale: 3.2, duration: 0.46, ease: "power2.out" }, 5.36);
+    scopeTimeline.to(".scope-confirm-burst", { opacity: 0, duration: 0.46, ease: "power2.in" }, 5.82);
+
+    window.__timelines["scope"] = scopeTimeline;
+  </script>
+</template>

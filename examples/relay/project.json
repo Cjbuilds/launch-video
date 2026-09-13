@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "product": {
+    "name": "Relay",
+    "fictional": true,
+    "summary": "Relay turns scattered customer feedback into grouped product insights and scoped build tasks.",
+    "audience": "Founder-led software teams that need a clear path from customer notes to the next build.",
+    "promise": "Collect the signal, connect repeated requests, and hand the team a build-ready task.",
+    "cta": "Start with Relay"
+  },
+  "direction": "A crisp editorial product film on warm white: oversized ink typography, electric-blue actions, lavender depth planes, and a single continuous feedback-to-build workflow. Perspective and soft light give the UI physical presence while every frame remains legible at feed scale.",
+  "brand": {
+    "basis": "Designed fictional fixture; no real product brand claimed",
+    "colors": {
+      "ink": "#11162A",
+      "paper": "#F7F8FC",
+      "accent": "#2457FF"
+    },
+    "font": "Arial, sans-serif"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "audio": "none"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "duration": 5,
+      "copy": "Customer feedback is everywhere. The signal is not.",
+      "narration": "",
+      "motion": "Loose feedback cards drift in from different edges, overlap, and settle around the headline while the cursor beam searches without finding a center.",
+      "frame": "frames/01-hook.html",
+      "assets": []
+    },
+    {
+      "id": "introduce",
+      "duration": 5,
+      "copy": "Meet Relay. One inbox for what customers need next.",
+      "narration": "",
+      "motion": "The scattered cards align into Relay's inbox as the product shell rises from the lavender stage; the newest note receives a quiet blue focus state.",
+      "frame": "frames/02-introduce.html",
+      "assets": []
+    },
+    {
+      "id": "group",
+      "duration": 7,
+      "copy": "Relay groups the repeated request: Team permissions.",
+      "narration": "",
+      "motion": "Four feedback rows peel from the inbox, connect along blue paths, and stack into one insight card; the shared phrase highlights in sequence.",
+      "frame": "frames/03-group.html",
+      "assets": []
+    },
+    {
+      "id": "scope",
+      "duration": 7,
+      "copy": "Turn the insight into a build-ready task.",
+      "narration": "",
+      "motion": "The insight card docks beside a task composer; problem, scope, and acceptance checks reveal top to bottom before the Create task button confirms.",
+      "frame": "frames/04-scope.html",
+      "assets": []
+    },
+    {
+      "id": "payoff",
+      "duration": 6,
+      "copy": "Ship what customers asked for. Start with Relay.",
+      "narration": "",
+      "motion": "The completed workflow condenses into three connected stages, the build-ready task slides into place, and the final call to action gains a restrained blue glow.",
+      "frame": "frames/05-payoff.html",
+      "assets": []
+    }
+  ]
+}

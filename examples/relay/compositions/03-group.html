@@ -1,0 +1,256 @@
+<template>
+  <style>
+    * { box-sizing: border-box; }
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #11162a;
+    }
+    .clip {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: radial-gradient(circle at 72% 45%, #20294b, #11162a 58%);
+    }
+    .group-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .group-brand {
+      position: absolute;
+      left: 6.25%;
+      top: 6%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-size: 23px;
+      font-weight: 800;
+    }
+    .group-brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: #2457ff;
+    }
+    .group-copy {
+      position: absolute;
+      left: 6.25%;
+      top: 22%;
+      width: 41%;
+      color: #fff;
+    }
+    .group-eyebrow {
+      color: #8fa9ff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .group-title {
+      margin: 24px 0 0;
+      font-size: 78px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+    .group-description {
+      width: 78%;
+      margin: 29px 0 0;
+      color: #aeb5c9;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    .group-cluster {
+      position: absolute;
+      right: 5.3%;
+      top: 11%;
+      width: 45%;
+      height: 80%;
+    }
+    .group-halo {
+      position: absolute;
+      left: 18%;
+      top: 19%;
+      width: 70%;
+      height: 66%;
+      border-radius: 50%;
+      background: #2457ff;
+      filter: blur(100px);
+      opacity: 0.28;
+    }
+    .group-thread {
+      position: absolute;
+      height: 3px;
+      transform-origin: left center;
+    }
+    .group-thread-line {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transform-origin: left center;
+      background: linear-gradient(90deg, #607de8, #8aa6ff);
+      box-shadow: 0 0 15px #2457ff;
+    }
+    .group-t1 { left: 23%; top: 24%; width: 39%; transform: rotate(26deg); }
+    .group-t2 { left: 12%; top: 52%; width: 49%; transform: rotate(-5deg); }
+    .group-t3 { left: 25%; top: 78%; width: 40%; transform: rotate(-34deg); }
+    .group-t4 { left: 55%; top: 14%; width: 29%; transform: rotate(80deg); }
+    .group-note {
+      position: absolute;
+      width: 36%;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: #242b45;
+      color: #fff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+      transform-origin: 50% 50%;
+    }
+    .group-note-label {
+      display: block;
+      margin-bottom: 10px;
+      color: #95a0bb;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .group-note-copy { margin: 0; font-size: 15px; line-height: 1.35; }
+    .group-mark { background: transparent; color: #8da8ff; font-weight: 800; }
+    .group-n1 { left: 3%; top: 12%; }
+    .group-n2 { right: 1%; top: 5%; }
+    .group-n3 { left: -2%; bottom: 7%; }
+    .group-n4 { right: 0; bottom: 2%; }
+    .group-insight {
+      position: absolute;
+      left: 33%;
+      top: 33%;
+      width: 51%;
+      padding: 27px 28px 24px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.24);
+      transform-origin: 50% 50%;
+    }
+    .group-insight-top { display: flex; justify-content: space-between; align-items: center; }
+    .group-pill {
+      padding: 8px 11px;
+      border-radius: 99px;
+      background: #e9edff;
+      color: #2457ff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .group-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #687087;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .group-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #2457ff; }
+    .group-insight-title { margin: 20px 0 12px; font-size: 34px; letter-spacing: -0.045em; }
+    .group-insight-copy { margin: 0; color: #636a7e; font-size: 15px; line-height: 1.45; }
+    .group-linked {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #e5e8f1;
+      color: #687087;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .group-faces { display: flex; }
+    .group-face {
+      display: grid;
+      place-items: center;
+      width: 29px;
+      height: 29px;
+      margin-left: -6px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: #dfe5ff;
+      color: #2457ff;
+      font-size: 9px;
+    }
+  </style>
+
+  <div data-hf-id="hf-hgk0" id="root" data-composition-id="group" data-start="0" data-duration="7" data-width="1920" data-height="1080" role="img" aria-label="Related feedback connected into one Relay insight">
+    <main id="group-stage" data-hf-id="hf-vp3o" class="clip" data-start="0" data-duration="7" data-track-index="1">
+      <div data-hf-id="hf-6fva" class="group-grid"></div>
+      <div data-hf-id="hf-tyc2" class="group-brand"><b data-hf-id="hf-941m" class="group-brand-mark">R</b>Relay</div>
+      <section data-hf-id="hf-hdrd" class="group-copy">
+        <div data-hf-id="hf-iv7x" class="group-eyebrow">Find the repeated need</div>
+        <h1 data-hf-id="hf-npk4" class="group-title">Relay groups the repeated request: Team permissions.</h1>
+        <p data-hf-id="hf-bjjg" class="group-description">Source notes stay attached, so the team can inspect the evidence before choosing what to build.</p>
+      </section>
+      <section data-hf-id="hf-yaug" class="group-cluster">
+        <div data-hf-id="hf-r9ks" class="group-halo"></div>
+        <i data-hf-id="hf-otdt" class="group-thread group-t1"><span data-hf-id="hf-sdly" class="group-thread-line"></span></i>
+        <i data-hf-id="hf-srhu" class="group-thread group-t2"><span data-hf-id="hf-9vmy" class="group-thread-line"></span></i>
+        <i data-hf-id="hf-wplv" class="group-thread group-t3"><span data-hf-id="hf-a9xz" class="group-thread-line"></span></i>
+        <i data-hf-id="hf-984c" class="group-thread group-t4"><span data-hf-id="hf-ao90" class="group-thread-line"></span></i>
+        <article data-hf-id="hf-pkkw" class="group-note group-n1"><small data-hf-id="hf-kwk6" class="group-note-label">Support inbox</small><p data-hf-id="hf-orv9" class="group-note-copy">Managers need <mark data-hf-id="hf-grsh" class="group-mark">edit controls</mark>.</p></article>
+        <article data-hf-id="hf-y8gr" class="group-note group-n2"><small data-hf-id="hf-edn1" class="group-note-label">Customer call</small><p data-hf-id="hf-2cjq" class="group-note-copy"><mark data-hf-id="hf-c1j8" class="group-mark">Different access</mark> for contractors.</p></article>
+        <article data-hf-id="hf-uacq" class="group-note group-n3"><small data-hf-id="hf-mpqa" class="group-note-label">Founder note</small><p data-hf-id="hf-kocz" class="group-note-copy">Every member is an <mark data-hf-id="hf-de08" class="group-mark">admin</mark>.</p></article>
+        <article data-hf-id="hf-bin1" class="group-note group-n4"><small data-hf-id="hf-v0lc" class="group-note-label">Success handoff</small><p data-hf-id="hf-1gqp" class="group-note-copy">Add <mark data-hf-id="hf-nitj" class="group-mark">viewer and editor</mark> roles.</p></article>
+        <article data-hf-id="hf-cyj9" class="group-insight">
+          <div data-hf-id="hf-3fds" class="group-insight-top"><span data-hf-id="hf-seet" class="group-pill">Repeated request</span><span data-hf-id="hf-23gb" class="group-status"><i data-hf-id="hf-85z2" class="group-status-dot"></i>Ready to review</span></div>
+          <h2 data-hf-id="hf-ug5f" class="group-insight-title">Team permissions</h2>
+          <p data-hf-id="hf-6grz" class="group-insight-copy">Customers need workspace roles that separate viewing, editing, and admin access.</p>
+          <div data-hf-id="hf-y73d" class="group-linked"><span data-hf-id="hf-5h9o">4 linked source notes</span><span data-hf-id="hf-09ff" class="group-faces"><b data-hf-id="hf-j1ln" class="group-face">IN</b><b data-hf-id="hf-lzt7" class="group-face">CL</b><b data-hf-id="hf-y40n" class="group-face">DM</b><b data-hf-id="hf-gttu" class="group-face">CS</b></span></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const groupTimeline = gsap.timeline({ paused: true });
+    const groupHold = { progress: 0 };
+    groupTimeline.to(groupHold, { progress: 1, duration: 7, ease: "none" }, 0);
+
+    groupTimeline.fromTo(".group-brand", { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.04);
+    groupTimeline.fromTo(".group-copy", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.08);
+    groupTimeline.fromTo(".group-halo", { opacity: 0.08, scale: 0.72 }, { opacity: 0.28, scale: 1, duration: 2.4, ease: "power2.out" }, 0.18);
+
+    groupTimeline.fromTo(".group-n1", { opacity: 0, x: -180, y: -42, rotation: -10 }, { opacity: 1, x: 0, y: 0, rotation: -4, duration: 0.72, ease: "power3.out" }, 0.3);
+    groupTimeline.fromTo(".group-n2", { opacity: 0, x: 170, y: -58, rotation: 11 }, { opacity: 1, x: 0, y: 0, rotation: 4, duration: 0.72, ease: "power3.out" }, 0.82);
+    groupTimeline.fromTo(".group-n3", { opacity: 0, x: -190, y: 48, rotation: -5 }, { opacity: 1, x: 0, y: 0, rotation: 3, duration: 0.72, ease: "power3.out" }, 1.34);
+    groupTimeline.fromTo(".group-n4", { opacity: 0, x: 175, y: 54, rotation: 4 }, { opacity: 1, x: 0, y: 0, rotation: -4, duration: 0.72, ease: "power3.out" }, 1.86);
+
+    groupTimeline.fromTo(".group-t1 .group-thread-line", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 1.18);
+    groupTimeline.fromTo(".group-t2 .group-thread-line", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 1.7);
+    groupTimeline.fromTo(".group-t3 .group-thread-line", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 2.22);
+    groupTimeline.fromTo(".group-t4 .group-thread-line", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 2.74);
+    groupTimeline.fromTo(".group-mark", { color: "#ffffff", backgroundColor: "rgba(36,87,255,0)" }, { color: "#8da8ff", backgroundColor: "rgba(36,87,255,0)", duration: 0.42, stagger: 0.52, ease: "power2.out" }, 1.42);
+
+    groupTimeline.fromTo(".group-insight", { opacity: 0, y: 38, scale: 0.84 }, { opacity: 1, y: 0, scale: 1, duration: 0.82, ease: "back.out(1.55)" }, 3.18);
+    groupTimeline.fromTo(".group-insight-top", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.92);
+    groupTimeline.fromTo(".group-insight-title", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" }, 4.32);
+    groupTimeline.fromTo(".group-insight-copy", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 4.74);
+    groupTimeline.fromTo(".group-linked", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 5.12);
+    groupTimeline.fromTo(".group-face", { opacity: 0, scale: 0.65 }, { opacity: 1, scale: 1, duration: 0.36, stagger: 0.1, ease: "back.out(1.6)" }, 5.32);
+
+    window.__timelines["group"] = groupTimeline;
+  </script>
+</template>

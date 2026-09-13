@@ -1,0 +1,199 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      color: #11162a;
+      font-family: Arial, sans-serif;
+    }
+    .clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fbfcff 0 59%, #eceaff 59% 100%);
+    }
+    .introduce-orb {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      right: -230px;
+      top: -310px;
+      background: #dce4ff;
+      filter: blur(1px);
+      opacity: 0.7;
+    }
+    .introduce-brand {
+      position: absolute;
+      left: 6.25%;
+      top: 6%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+    .introduce-mark {
+      display: grid;
+      grid-template-columns: 11px 15px;
+      grid-template-rows: 11px 11px;
+      gap: 5px;
+    }
+    .introduce-mark i { background: #2457ff; border-radius: 4px; }
+    .introduce-mark i:first-child { grid-row: 1 / 3; }
+    .introduce-copy {
+      position: absolute;
+      left: 6.25%;
+      top: 25%;
+      width: 35%;
+      z-index: 3;
+    }
+    .introduce-eyebrow {
+      margin-bottom: 23px;
+      color: #2457ff;
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .introduce-copy h1 {
+      margin: 0;
+      font-size: 80px;
+      line-height: 1.01;
+      letter-spacing: -0.06em;
+    }
+    .introduce-copy p {
+      width: 88%;
+      margin: 30px 0 0;
+      color: #636a80;
+      font-size: 21px;
+      line-height: 1.5;
+    }
+    .introduce-source-row { display: flex; gap: 10px; margin-top: 34px; }
+    .introduce-source-row span {
+      padding: 10px 14px;
+      border: 1px solid #d9ddeb;
+      border-radius: 99px;
+      background: #fff;
+      color: #687087;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .introduce-stage {
+      position: absolute;
+      right: 3.5%;
+      top: 13%;
+      width: 53%;
+      height: 75%;
+      border-radius: 56px;
+      background: linear-gradient(145deg, #dedcff, #f1f0ff);
+      box-shadow: inset 0 1px 0 #fff, 0 50px 100px rgba(42, 46, 91, 0.12);
+      will-change: transform, opacity;
+    }
+    .introduce-app {
+      position: absolute;
+      inset: 5.2%;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      background: #fff;
+      border: 1px solid rgba(17, 22, 42, 0.12);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(17, 22, 42, 0.18);
+    }
+    .introduce-side { padding: 24px 18px; background: #13182b; color: #fff; }
+    .introduce-sidebrand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; margin: 2px 4px 38px; }
+    .introduce-sidebrand b { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #2457ff; }
+    .introduce-nav { padding: 13px 14px; margin: 7px 0; border-radius: 10px; color: #9fa6bc; font-size: 14px; font-weight: 700; }
+    .introduce-nav.introduce-active { background: #262d47; color: #fff; }
+    .introduce-main { padding: 28px 30px; }
+    .introduce-top { display: flex; align-items: center; justify-content: space-between; }
+    .introduce-top h2 { font-size: 25px; letter-spacing: -0.04em; margin: 0; }
+    .introduce-add { padding: 12px 16px; border-radius: 10px; background: #2457ff; color: #fff; font-size: 13px; font-weight: 800; }
+    .introduce-tabs { display: flex; gap: 25px; margin-top: 28px; border-bottom: 1px solid #e4e7f0; }
+    .introduce-tab { padding: 0 0 13px; color: #717688; font-size: 13px; font-weight: 800; }
+    .introduce-tab.introduce-active { color: #11162a; border-bottom: 3px solid #2457ff; }
+    .introduce-row {
+      display: grid;
+      grid-template-columns: 38px 1fr 105px;
+      gap: 15px;
+      align-items: center;
+      padding: 18px 4px;
+      border-bottom: 1px solid #eceef4;
+      will-change: transform, opacity;
+    }
+    .introduce-icon { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: #eef1ff; color: #2457ff; font-size: 11px; font-weight: 900; }
+    .introduce-note b { display: block; font-size: 15px; margin-bottom: 6px; }
+    .introduce-note span { color: #6b7185; font-size: 13px; }
+    .introduce-tag { justify-self: end; padding: 8px 10px; border-radius: 8px; background: #f2f3f8; color: #646b80; font-size: 11px; font-weight: 800; }
+    .introduce-row.introduce-focus {
+      margin: 7px -10px;
+      padding: 16px 14px;
+      border: 1px solid #b9c8ff;
+      border-radius: 13px;
+      background: #f5f7ff;
+      box-shadow: 0 10px 30px rgba(36, 87, 255, 0.1);
+    }
+  </style>
+
+  <div data-hf-id="hf-ttkp" id="root" data-composition-id="introduce" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+    <main data-hf-id="hf-8uqz" id="introduce-scene" class="clip" data-start="0" data-duration="5" data-track-index="1" aria-label="Relay customer feedback inbox">
+      <!-- Decorative orb is deliberately clipped beyond the top-right canvas edge. -->
+      <div data-hf-id="hf-tsyn" class="introduce-orb" data-layout-allow-overflow></div>
+      <div data-hf-id="hf-f1w4" class="introduce-brand"><span data-hf-id="hf-huiy" class="introduce-mark"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></span>Relay</div>
+      <section data-hf-id="hf-xqc3" class="introduce-copy">
+        <div data-hf-id="hf-j0s8" class="introduce-eyebrow">One product inbox</div>
+        <h1 data-hf-id="hf-lc6h">Meet Relay. One inbox for what customers need next.</h1>
+        <p data-hf-id="hf-6efn">Every note keeps its source, account context, and exact customer language.</p>
+        <div data-hf-id="hf-kzjw" class="introduce-source-row"><span data-hf-id="hf-7o6s">Support</span><span data-hf-id="hf-r4aq">Calls</span><span data-hf-id="hf-yzq6">Notes</span></div>
+      </section>
+      <section data-hf-id="hf-ze86" class="introduce-stage">
+        <div data-hf-id="hf-2jzt" class="introduce-app">
+          <aside data-hf-id="hf-t546" class="introduce-side">
+            <div data-hf-id="hf-x0md" class="introduce-sidebrand"><b data-hf-id="hf-4nit">R</b>Relay</div>
+            <div data-hf-id="hf-644d" class="introduce-nav introduce-active">Inbox</div>
+            <div data-hf-id="hf-s6te" class="introduce-nav">Insights</div>
+            <div data-hf-id="hf-xz2n" class="introduce-nav">Build tasks</div>
+            <div data-hf-id="hf-wm33" class="introduce-nav">Archive</div>
+          </aside>
+          <div data-hf-id="hf-9w1b" class="introduce-main">
+            <div data-hf-id="hf-oye1" class="introduce-top"><h2 data-hf-id="hf-gtz8">Feedback inbox</h2><span data-hf-id="hf-uuss" class="introduce-add">+ Add note</span></div>
+            <div data-hf-id="hf-cf70" class="introduce-tabs"><span data-hf-id="hf-soue" class="introduce-tab introduce-active">All feedback</span><span data-hf-id="hf-k0bc" class="introduce-tab">Unsorted</span><span data-hf-id="hf-a5ud" class="introduce-tab">Connected</span></div>
+            <div data-hf-id="hf-xe3q" class="introduce-row introduce-row-1"><span data-hf-id="hf-7nu9" class="introduce-icon">IN</span><div data-hf-id="hf-clzw" class="introduce-note"><b data-hf-id="hf-ukd5">Managers need edit controls</b><span data-hf-id="hf-jpr4">Support inbox · Northwind</span></div><span data-hf-id="hf-lrh5" class="introduce-tag">Access</span></div>
+            <div data-hf-id="hf-qod9" class="introduce-row introduce-row-2 introduce-focus"><span data-hf-id="hf-4pmp" class="introduce-icon">CL</span><div data-hf-id="hf-y9g4" class="introduce-note"><b data-hf-id="hf-u9mj">Different access for contractors</b><span data-hf-id="hf-f6xx">Customer call · Juniper</span></div><span data-hf-id="hf-y8wx" class="introduce-tag">New note</span></div>
+            <div data-hf-id="hf-sobw" class="introduce-row introduce-row-3"><span data-hf-id="hf-tfu1" class="introduce-icon">DM</span><div data-hf-id="hf-x2j1" class="introduce-note"><b data-hf-id="hf-n0ks">Every member becomes an admin</b><span data-hf-id="hf-qwpl">Founder note · Pilot review</span></div><span data-hf-id="hf-gist" class="introduce-tag">Access</span></div>
+            <div data-hf-id="hf-g5tf" class="introduce-row introduce-row-4"><span data-hf-id="hf-duoc" class="introduce-icon">CS</span><div data-hf-id="hf-xgu2" class="introduce-note"><b data-hf-id="hf-lzot">Add viewer and editor roles</b><span data-hf-id="hf-ppbk">Success handoff · Fieldstone</span></div><span data-hf-id="hf-0dfg" class="introduce-tag">Roles</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const introduceTimeline = gsap.timeline({ paused: true });
+    const introduceHold = { progress: 0 };
+
+    introduceTimeline.fromTo(".introduce-brand", { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.34, ease: "power3.out" }, 0);
+    introduceTimeline.fromTo(".introduce-copy h1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" }, 0.02);
+    introduceTimeline.fromTo(".introduce-eyebrow", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.3);
+    introduceTimeline.fromTo(".introduce-stage", { opacity: 0.25, y: 220, scale: 0.94, rotationY: -9, rotationX: 5, transformPerspective: 1400 }, { opacity: 1, y: 0, scale: 1, rotationY: -5, rotationX: 2, transformPerspective: 1400, duration: 1.35, ease: "power3.out" }, 0.36);
+    introduceTimeline.fromTo(".introduce-copy p", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.58, ease: "power3.out" }, 1.1);
+
+    introduceTimeline.fromTo(".introduce-row-1", { opacity: 0, x: 215, y: -82, rotation: 3 }, { opacity: 0, x: 0, y: 0, rotation: 0, duration: 0.56, ease: "power3.out" }, 1.32);
+    introduceTimeline.fromTo(".introduce-row-1", { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power3.out", immediateRender: false }, 1.9);
+    introduceTimeline.fromTo(".introduce-row-3", { opacity: 0, x: -190, y: 78, rotation: -3 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.95, ease: "power3.out" }, 1.78);
+    introduceTimeline.fromTo(".introduce-row-4", { opacity: 0, x: 235, y: 104, rotation: 4 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.95, ease: "power3.out" }, 2.2);
+    introduceTimeline.fromTo(".introduce-row-2", { opacity: 0, x: -225, y: -54, rotation: -4, backgroundColor: "rgba(255,255,255,0)", borderColor: "rgba(185,200,255,0)", boxShadow: "0 0 0 rgba(36,87,255,0)" }, { opacity: 1, x: 0, y: 0, rotation: 0, backgroundColor: "#f5f7ff", borderColor: "#b9c8ff", boxShadow: "0 10px 30px rgba(36,87,255,0.1)", duration: 1.08, ease: "power3.out" }, 2.65);
+    introduceTimeline.fromTo(".introduce-source-row span", { opacity: 0, y: 12, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, stagger: 0.14, ease: "power3.out" }, 2.58);
+    introduceTimeline.fromTo(introduceHold, { progress: 0 }, { progress: 1, duration: 1.15, ease: "none" }, 3.85);
+
+    window.__timelines["introduce"] = introduceTimeline;
+  </script>
+</template>
