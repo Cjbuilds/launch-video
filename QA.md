@@ -50,3 +50,9 @@ A separate neutral one-second render first proved the engine path. Upstream capt
 Approval records are local bookkeeping, not identity authentication. The static-frame loader supports the documented asset forms; it is not a general HTML sanitizer. Asset/layout meaning and actual playback require review. No time/token-saving benchmark or universal quality guarantee is claimed.
 
 The README banner was checked visually and with local Vision OCR; all seven intended strings matched. It uses CJ's approved black ASCII style.
+
+## Published release verification
+
+[Release v0.1.0](https://github.com/Cjbuilds/launch-video/releases/tag/v0.1.0) targets source commit `3d754b80187dfdd691e4128adcb0f6fa90feeccc`. Both README download URLs returned HTTP 200, and GitHub's asset digests matched the verified MP4 and approved HTML hashes above.
+
+A fresh public checkout passed all 16 tests, validated the full scene graph, and regenerated the exact approved storyboard hash. Private approval receipts were absent. The initial packaging omission of `index.html` was corrected in a separate commit before the release tag was created.
